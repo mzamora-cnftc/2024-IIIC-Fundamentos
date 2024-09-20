@@ -4,6 +4,9 @@ import generico.Utils;
 
 public class Ejercicio04 {
     public static void main(String[] args) {
+
+        Utils.limpiarConsola();
+
         String mensaje, nacionalidad;
 
         nacionalidad = Utils.leerString("Digite su nacionalidad: ");
