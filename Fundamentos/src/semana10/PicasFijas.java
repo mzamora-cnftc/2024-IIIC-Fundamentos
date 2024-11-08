@@ -1,5 +1,7 @@
 package semana10;
 
+import generico.Utils;
+
 public class PicasFijas {
 
     public static int evaluarFija(int x, int y) {
@@ -19,7 +21,7 @@ public class PicasFijas {
     }
 
     public static int contarFijas(int numeroUsuario, int numeroSecreto) {
-        int picas=0;
+        int picas = 0;
 
         if (validarNumero(numeroSecreto) && validarNumero(numeroUsuario)) {
             int m1, c1, d1, u1;
@@ -44,9 +46,8 @@ public class PicasFijas {
         return picas;
     }
 
-
     public static int contarPicas(int numeroUsuario, int numeroSecreto) {
-        int picas=0;
+        int picas = 0;
 
         if (validarNumero(numeroSecreto) && validarNumero(numeroUsuario)) {
             int m1, c1, d1, u1;
@@ -86,17 +87,54 @@ public class PicasFijas {
     }
 
     public static int generarNumeroAleatorio() {
-        int numero =  0;
+        int numero = 0;
         do {
             numero = (int) (Math.random() * 9000) + 1000;
         } while (!validarNumero(numero));
         return numero;
     }
 
+    public static void imprimirLogo() {
+        Utils.limpiarConsola();
+        System.out.println("        _____ _                         ______ _ _           ");
+        System.out.println("        |  __ (_)                       |  ____(_|_)          ");
+        System.out.println("        | |__) |  ___ __ _ ___   _   _  | |__   _ _  __ _ ___ ");
+        System.out.println("        |  ___/ |/ __/ _` / __| | | | | |  __| | | |/ _` / __|");
+        System.out.println("        | |   | | (_| (_| \\__ \\ | |_| | | |    | | | (_| \\__ \\");
+        System.out.println("        |_|   |_|\\___\\__,_|___/  \\__, | |_|    |_| |\\__,_|___/");
+        System.out.println("                                  __/ |         _/ |          ");
+        System.out.println("                                 |___/         |__/           ");
+        Utils.leerString("Digite <enter> para continuar");
+        Utils.limpiarConsola();
+    }
+
     public static void main(String[] args) {
-        
-        for (int i = 0; i < 100; i++) {
-            System.out.println(generarNumeroAleatorio());
+        int intentos = 5, intento = 0, numero, numeroSecreto;
+        boolean haAcertado = false;
+        numeroSecreto = generarNumeroAleatorio();
+        imprimirLogo();
+
+        while (intento < intentos && !haAcertado) {
+            intento++;
+            System.out.println("Intento " + intento + " de " + intentos);
+            numero = Utils.leerEntero("Digite un número de 4 cifras diferentes: ");
+            if (validarNumero(numero)) {
+                if (numero == numeroSecreto) {
+                    System.out.println("¡Felicidades! Has adivinado el número secreto: " + numeroSecreto);
+                    break;
+                } else {
+                    System.out.println("Picas: " + contarPicas(numero, numeroSecreto));
+                    System.out.println("Fijas: " + contarFijas(numero, numeroSecreto));
+                }
+            } else {
+                System.out.println("El número ingresado no es válido.");
+            }
+
         }
+        if (intento == intentos) {
+            System.out.println("Lo siento, has agotado tus intentos. El número secreto era: " + numeroSecreto);
+        } else {
+            System.out.println("¡Felicidades! Has adivinado el número secreto: " + numeroSecreto);
         }
+    }
 }
