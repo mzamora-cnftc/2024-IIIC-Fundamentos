@@ -96,6 +96,7 @@ public class PicasFijas {
 
     public static void imprimirLogo() {
         Utils.limpiarConsola();
+        System.out.println();
         System.out.println("        _____ _                         ______ _ _           ");
         System.out.println("        |  __ (_)                       |  ____(_|_)          ");
         System.out.println("        | |__) |  ___ __ _ ___   _   _  | |__   _ _  __ _ ___ ");
@@ -113,28 +114,29 @@ public class PicasFijas {
         boolean haAcertado = false;
         numeroSecreto = generarNumeroAleatorio();
         imprimirLogo();
-
-        while (intento < intentos && !haAcertado) {
+        while (!haAcertado && intento < intentos) {
             intento++;
             System.out.println("Intento " + intento + " de " + intentos);
             numero = Utils.leerEntero("Digite un número de 4 cifras diferentes: ");
             if (validarNumero(numero)) {
                 if (numero == numeroSecreto) {
-                    System.out.println("¡Felicidades! Has adivinado el número secreto: " + numeroSecreto);
-                    break;
+                    haAcertado = true;
+                    System.out.println("¡Felicidades! Has acertado el número secreto");
                 } else {
-                    System.out.println("Picas: " + contarPicas(numero, numeroSecreto));
-                    System.out.println("Fijas: " + contarFijas(numero, numeroSecreto));
+                    int picas = contarPicas(numero, numeroSecreto);
+                    int fijas = contarFijas(numero, numeroSecreto);
+                    System.out.println("Picas: " + picas);
+                    System.out.println("Fijas: " + fijas);
                 }
             } else {
-                System.out.println("El número ingresado no es válido.");
+                System.out.println("El número no es válido");
             }
+        }
 
-        }
         if (intento == intentos) {
-            System.out.println("Lo siento, has agotado tus intentos. El número secreto era: " + numeroSecreto);
-        } else {
-            System.out.println("¡Felicidades! Has adivinado el número secreto: " + numeroSecreto);
+            System.out.println("Lo siento, no has acertado el número secreto");
+            System.out.println("El número secreto era: " + numeroSecreto);
         }
+
     }
 }
